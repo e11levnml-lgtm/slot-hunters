@@ -25,8 +25,7 @@
         @keyframes rgb { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         .promo-banner { background: linear-gradient(135deg, #0044ff, #001144); border: 2px solid var(--blue); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0, 119, 255, 0.3); }
         .promo-banner h2 { font-size: 22px; font-weight: 900; margin: 0; }
-        .btn-reg { background: linear-gradient(135deg, #ffd700, #ff8800); color: #000; width: 100%; padding: 20px; border: none; border-radius: 18px; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 204, 0, 0.3); margin-bottom: 20px; transition: 0.3s; }
-        .btn-reg:active { transform: scale(0.98); }
+        .btn-reg { background: linear-gradient(135deg, #ffd700, #ff8800); color: #000; width: 100%; padding: 20px; border: none; border-radius: 18px; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 204, 0, 0.3); margin-bottom: 20px; }
         .dep-box { background: rgba(255, 51, 102, 0.05); border: 1px solid var(--error); border-radius: 20px; padding: 15px; margin-bottom: 25px; }
         .dep-box h3 { font-size: 22px; font-weight: 900; margin: 5px 0; color: var(--error); }
         .slot-card { background: #111; border: 1px solid #333; border-radius: 20px; padding: 15px; display: flex; align-items: center; cursor: pointer; transition: 0.3s; margin-bottom: 15px; }
@@ -34,8 +33,8 @@
         .hack-panel { background: #000; border: 2px solid var(--blue); border-radius: 25px; padding: 25px; margin-top: 10px; box-shadow: 0 0 20px rgba(0, 119, 255, 0.2); }
         .found-text { font-size: 18px; font-weight: 900; margin-bottom: 10px; display: none; }
         .result-text { font-size: 22px; font-weight: 900; margin-bottom: 15px; }
-        .nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 370px; background: rgba(0,0,0,0.95); border: 1px solid #333; border-radius: 25px; display: flex; justify-content: space-around; padding: 12px; backdrop-filter: blur(10px); }
-        .nav-item { color: #666; font-size: 11px; font-weight: 900; cursor: pointer; text-align: center; text-transform: uppercase; }
+        .nav { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(0,0,0,0.9); border: 1px solid #222; border-radius: 25px; display: flex; justify-content: space-around; padding: 15px; }
+        .nav-item { color: #555; font-size: 11px; font-weight: 900; cursor: pointer; }
         .nav-item.active { color: var(--gold); }
         @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
         .tab { display: none; }
@@ -45,120 +44,71 @@
 <body>
 <div class="app-container">
     <div class="ticker"><div class="ticker-track" id="ticker-track"></div></div>
-    
     <div class="content">
         <div id="home" class="tab active-tab">
             <h1 class="main-title">SLOT <span style="color:var(--gold)">HUNTERS</span></h1>
             <div class="sub-partner">OFFICIAL PARTNER 1WIN</div>
-            
-            <div class="promo-banner">
-                <h2>+500% ДО ДЕПОЗИТУ</h2>
-                <div style="font-size:12px; color:var(--win); margin-top:5px; font-weight:700;">ГАРАНТОВАНО ПРИ РЕЄСТРАЦІЇ 🎁</div>
-            </div>
+            <div class="promo-banner"><h2>+500% ДО ДЕПОЗИТУ</h2><div style="font-size:12px; color:var(--win); margin-top:5px; font-weight:700;">ГАРАНТОВАНО ПРИ РЕЄСТРАЦІЇ 🎁</div></div>
             
             <button class="btn-reg" onclick="window.open('https://lkts.pro/d5e71e', '_blank')">ЗАРЕЄСТРУВАТИСЯ</button>
 
-            <div class="dep-box">
-                <div style="font-size:10px; color:#888;">АКТИВАЦІЯ АЛГОРИТМІВ:</div>
-                <h3>МІНІМАЛЬНИЙ ДЕПОЗИТ 300 ₴</h3>
-            </div>
+            <div class="dep-box"><div style="font-size:10px; color:#888;">АКТИВАЦІЯ АЛГОРИТМІВ:</div><h3>МІНІМАЛЬНИЙ ДЕПОЗИТ 300 ₴</h3></div>
         </div>
-
         <div id="slots" class="tab">
             <h2 style="margin-bottom:20px;">ОБЕРІТЬ ГРУ</h2>
-            
             <div class="slot-card" onclick="openGame()" style="border-color:var(--blue)">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8X3z-Y9Y1EwX1XhX8m-R9_l9_j8_j9_j9_j9&s" alt="Mines">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8X3z-Y9Y1EwX1XhX8m-R9_l9_j8_j9_j9_j9&s">
                 <div style="text-align:left;"><b style="font-size:18px;">MINE SLOT</b><br><small style="color:var(--win)">READY ●</small></div>
             </div>
-
             <div id="hack-area" style="display:none;">
                 <div class="hack-panel">
                     <div id="h-status" style="font-size:10px; color:#444; text-transform:uppercase;">Searching vulnerability...</div>
-                    <div class="found-text" id="h-found">ТАКТИКУ ЗНАЙДЕНО!</div>
+                    <div class="found-text rgb" id="h-found">ТАКТИКУ ЗНАЙДЕНО!</div>
                     <div class="result-text" id="h-res"></div>
                     <div id="timer" style="color:var(--error); font-size:12px; font-weight:900;"></div>
                 </div>
-                <button class="btn-reg" id="genBtn" style="background:var(--win); margin-top:15px; color:#000;" onclick="getSignal()">ОТРИМАТИ ТАКТИКУ</button>
+                <button class="btn-reg" id="genBtn" style="background:var(--win); margin-top:15px;" onclick="getSignal()">ОТРИМАТИ ТАКТИКУ</button>
             </div>
-
-            <div class="slot-card" style="opacity:0.3; cursor:default;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9-6Y-N_N4F2E-rB7hP_r9_h_n_X-q5Xq_XA&s" alt="Sweet">
-                <b>SWEET BONANZA</b>
-            </div>
+            <div class="slot-card" style="opacity:0.3; cursor:default;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9-6Y-N_N4F2E-rB7hP_r9_h_n_X-q5Xq_XA&s"><b>SWEET BONANZA</b></div>
         </div>
     </div>
-
-    <div class="nav">
-        <div class="nav-item active" onclick="switchTab('home', this)">Головна</div>
-        <div class="nav-item" onclick="switchTab('slots', this)">Слоти</div>
-        <div class="nav-item" onclick="window.open('https://t.me/SLOTHUNTERS_BOT', '_blank')" style="color: var(--blue);">Бот ТГ</div>
-    </div>
+    <div class="nav"><div class="nav-item active" onclick="switchTab('home', this)">Головна</div><div class="nav-item" onclick="switchTab('slots', this)">Слоти</div></div>
 </div>
-
 <script>
-    // Бегущая строка выигрышей
-    const names = ["Andriy", "Maks", "Rich", "Boss", "Digger", "Sanya", "King", "Vanya", "Zeka", "Dimon"];
+    const names = ["Andriy", "Maks", "Rich", "Boss", "Digger", "Sanya", "King"];
     const track = document.getElementById('ticker-track');
     for(let i=0; i<30; i++) {
         const u = names[Math.floor(Math.random()*names.length)] + "_" + Math.floor(Math.random()*99);
         const w = (Math.floor(Math.random() * 100000) + 40000).toLocaleString();
         track.innerHTML += `<span class="t-item">🔥 ${u}: <b>+${w} ₴</b></span>`;
     }
-
     function switchTab(id, el) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-tab'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        document.getElementById(id).classList.add('active-tab'); 
-        if (el) el.classList.add('active');
+        document.getElementById(id).classList.add('active-tab'); el.classList.add('active');
     }
-
-    function openGame() { 
-        document.getElementById('hack-area').style.display = 'block'; 
-    }
-
+    function openGame() { document.getElementById('hack-area').style.display = 'block'; }
     function getSignal() {
-        const res = document.getElementById('h-res'); 
-        const fnd = document.getElementById('h-found'); 
-        const st = document.getElementById('h-status'); 
-        const btn = document.getElementById('genBtn');
-        
+        const res = document.getElementById('h-res'); const fnd = document.getElementById('h-found'); const st = document.getElementById('h-status'); const btn = document.getElementById('genBtn');
         if(!window.activated) {
             alert("🚨 ПОМИЛКА!\nСистема не бачить депозит 300 ₴.\nПоповніть рахунок 1WIN для активації!");
-            window.open('https://lkts.pro/d5e71e', '_blank'); 
-            window.activated = true; 
-            return;
+            window.open('https://lkts.pro/d5e71e', '_blank'); // СИЛКА ТУТ ТАКОЖ
+            window.activated = true; return;
         }
-        
-        st.innerText = "CONNECTING TO 1WIN API..."; 
-        btn.disabled = true; 
-        res.innerText = ""; 
-        fnd.style.display = "none";
-        fnd.classList.remove('sub-partner');
-
+        st.innerText = "CONNECTING TO 1WIN API..."; btn.disabled = true; res.innerText = ""; fnd.style.display = "none";
         setTimeout(() => {
-            const bet = Math.floor(Math.random() * (20 - 5 + 1)) + 5; 
-            const spins = Math.floor(Math.random() * (15 - 3 + 1)) + 3;
-            fnd.style.display = "block"; 
-            fnd.classList.add('sub-partner');
+            const bet = Math.floor(Math.random() * (20 - 5 + 1)) + 5; const spins = Math.floor(Math.random() * (15 - 3 + 1)) + 3;
+            fnd.style.display = "block"; fnd.classList.add('sub-partner');
             res.innerHTML = `СТАВКА: <span style="color:var(--gold)">${bet} ₴</span><br>СПІНІВ: <span style="color:var(--gold)">${spins}</span>`;
-            st.innerText = "SIGNAL GENERATED"; 
-            startTimer(180);
+            st.innerText = "SIGNAL GENERATED"; startTimer(180);
         }, 2000);
     }
-
     function startTimer(sec) {
-        const tEl = document.getElementById('timer'); 
-        let t = sec;
+        const tEl = document.getElementById('timer'); let t = sec;
         let int = setInterval(() => {
-            let m = Math.floor(t/60); 
-            let s = t%60;
+            let m = Math.floor(t/60); let s = t%60;
             tEl.innerText = `ОНОВЛЕННЯ ЧЕРЕЗ: ${m}:${s < 10 ? '0'+s : s}`;
-            if(--t < 0) { 
-                clearInterval(int); 
-                tEl.innerText = ""; 
-                document.getElementById('genBtn').disabled = false; 
-            }
+            if(--t < 0) { clearInterval(int); tEl.innerText = ""; document.getElementById('genBtn').disabled = false; }
         }, 1000);
     }
 </script>
