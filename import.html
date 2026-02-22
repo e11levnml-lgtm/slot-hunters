@@ -1,69 +1,239 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TrustVia — Импорт</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/index.min.js"></script>
-    <style>
-        body { background: #0b0b0b; color: white; font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; min-height: 100dvh; }
-        .header { padding: 24px 20px; display: flex; align-items: center; background: rgba(11,11,11,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; }
-        .back-btn { font-size: 40px; color: #00d676; cursor: pointer; font-weight: bold; }
-        h1 { flex: 1; text-align: center; font-size: 36px; font-weight: 900; margin: 0; }
-        p { text-align: center; color: #aaa; font-size: 17px; margin: 32px 0 48px; line-height: 1.6; padding: 0 20px; }
-        textarea { background: #141414; border: 1px solid #444; color: white; border-radius: 28px; padding: 24px; font-size: 17px; font-family: monospace; width: 100%; height: 200px; resize: none; outline: none; transition: all 0.4s; box-shadow: inset 0 4px 12px rgba(0,0,0,0.6); }
-        textarea:focus { border-color: #00d676; box-shadow: 0 0 0 4px rgba(0,214,118,0.3); }
-        .error-msg { color: #ff4d4d; font-size: 16px; margin-top: 16px; text-align: center; display: none; }
-        .btn { background: linear-gradient(135deg, #00d676, #00ff9d); color: black; font-weight: 700; border-radius: 9999px; padding: 20px; width: 100%; font-size: 18px; border: none; cursor: pointer; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 12px 48px rgba(0,214,118,0.45); margin-top: 48px; }
-        .btn:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 20px 70px rgba(0,214,118,0.6); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>TrustVia — Импорт кошелька</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/index.min.js"></script>
+  <style>
+    :root {
+      --accent: #00d676;
+      --accent-dark: #00b35e;
+      --bg: #0b0b0b;
+      --card: #141414;
+      --error: #ff4d4d;
+    }
+
+    body {
+      background: var(--bg);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overscroll-behavior: none;
+    }
+
+    header {
+      background: rgba(11,11,11,0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: clamp(16px, 5vw, 24px) clamp(20px, 6vw, 32px);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #1a1a1a;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .back-btn {
+      font-size: clamp(36px, 11vw, 44px);
+      color: var(--accent);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      padding: 8px 12px;
+      line-height: 1;
+      border-radius: 12px;
+    }
+
+    .back-btn:active {
+      transform: scale(0.9);
+      background: rgba(0,214,118,0.08);
+    }
+
+    h1 {
+      flex: 1;
+      text-align: center;
+      font-size: clamp(28px, 8vw, 36px);
+      font-weight: 900;
+      margin: 0;
+    }
+
+    .info-text {
+      text-align: center;
+      color: #aaa;
+      font-size: clamp(15px, 4.2vw, 17px);
+      margin: clamp(24px, 6vh, 32px) 0 clamp(32px, 8vh, 48px);
+      line-height: 1.6;
+      padding: 0 clamp(16px, 5vw, 24px);
+    }
+
+    .input-container {
+      padding: 0 clamp(16px, 5vw, 32px);
+      flex: 1;
+    }
+
+    textarea {
+      background: var(--card);
+      border: 2px solid #333;
+      color: white;
+      border-radius: 24px;
+      padding: clamp(20px, 6vw, 28px);
+      font-size: clamp(16px, 4.8vw, 17px);
+      font-family: 'Courier New', monospace;
+      width: 100%;
+      min-height: 220px;
+      max-height: 400px;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 4px 16px rgba(0,0,0,0.5);
+      line-height: 1.6;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0,214,118,0.22);
+    }
+
+    .error-msg {
+      color: var(--error);
+      font-size: clamp(14px, 4vw, 16px);
+      margin: 16px 0 24px;
+      text-align: center;
+      min-height: 1.4em;
+      display: none;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #00ff9d 100%);
+      color: #000;
+      font-weight: 700;
+      border-radius: 9999px;
+      padding: clamp(18px, 5.5vw, 22px);
+      width: 90%;
+      max-width: 360px;
+      font-size: clamp(17px, 5vw, 19px);
+      margin: clamp(24px, 6vh, 40px) auto 0;
+      border: none;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 12px 48px rgba(0,214,118,0.4);
+    }
+
+    .btn:active {
+      transform: scale(0.96) translateY(3px);
+      box-shadow: 0 6px 24px rgba(0,214,118,0.3);
+      transition-duration: 0.1s;
+    }
+
+    @media (hover: hover) {
+      .btn:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 60px rgba(0,214,118,0.55);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; transform: none !important; }
+    }
+  </style>
 </head>
-<body class="p-6">
+<body>
+  <header>
+    <div class="back-btn" onclick="history.back()" aria-label="Назад">←</div>
+    <h1>Импорт кошелька</h1>
+  </header>
 
-    <div class="header">
-        <div class="back-btn" onclick="history.back()">←</div>
-        <h1>Импорт кошелька</h1>
-    </div>
+  <p class="info-text">
+    Введите свою секретную фразу восстановления (12 или 24 слова)<br>
+    Слова разделяйте пробелами. Порядок важен!
+  </p>
 
-    <p>Введите 12 или 24 слова секретной фразы через пробел</p>
+  <div class="input-container">
+    <textarea
+      id="phraseInput"
+      placeholder="word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      inputmode="text"
+      aria-describedby="import-error"
+    ></textarea>
 
-    <textarea id="phraseInput" placeholder="word1 word2 word3 word4 ..."></textarea>
     <p id="import-error" class="error-msg"></p>
+  </div>
 
-    <button class="btn" onclick="handleImport()">Восстановить кошелёк</button>
+  <button class="btn" type="button" id="import-btn">
+    Восстановить кошелёк
+  </button>
 
-    <script>
-        function handleImport() {
-            const phrase = document.getElementById('phraseInput').value.trim();
-            const errorEl = document.getElementById('import-error');
+  <script>
+    const textarea = document.getElementById('phraseInput');
+    const errorEl = document.getElementById('import-error');
+    const importBtn = document.getElementById('import-btn');
 
-            errorEl.style.display = 'none';
+    // Автофокус на textarea при загрузке (удобно на мобильном)
+    window.addEventListener('load', () => {
+      textarea.focus();
+    });
 
-            if (!phrase) {
-                errorEl.textContent = 'Введите секретную фразу';
-                errorEl.style.display = 'block';
-                return;
-            }
+    // Очистка ошибки при вводе
+    textarea.addEventListener('input', () => {
+      errorEl.style.display = 'none';
+    });
 
-            const words = phrase.split(/\s+/).filter(w => w);
-            if (words.length !== 12 && words.length !== 24) {
-                errorEl.textContent = 'Фраза должна содержать ровно 12 или 24 слова';
-                errorEl.style.display = 'block';
-                return;
-            }
+    function showError(message) {
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+      textarea.focus();
+    }
 
-            if (!bip39.validateMnemonic(phrase)) {
-                errorEl.textContent = 'Неверная фраза — слова не из словаря BIP-39 или контрольная сумма не совпадает';
-                errorEl.style.display = 'block';
-                return;
-            }
+    importBtn.addEventListener('click', handleImport);
 
-            localStorage.setItem('mnemonic', phrase);
-            localStorage.setItem('walletAddress', '0xc519118cd0c74879bd3FbF5fEaca473397540862');
-            window.location.href = 'index.html';
-        }
-    </script>
+    function handleImport() {
+      const phrase = textarea.value.trim();
+      
+      if (!phrase) {
+        showError('Введите секретную фразу');
+        return;
+      }
 
+      const words = phrase.split(/\s+/).filter(w => w.trim());
+      const wordCount = words.length;
+
+      if (wordCount !== 12 && wordCount !== 24) {
+        showError(`Фраза должна содержать ровно 12 или 24 слова (сейчас: ${wordCount})`);
+        return;
+      }
+
+      const normalizedPhrase = words.join(' ');
+
+      if (!bip39.validateMnemonic(normalizedPhrase)) {
+        showError('Неверная фраза — слова не из словаря BIP-39 или контрольная сумма неверная');
+        return;
+      }
+
+      // Успех
+      if (confirm('Вы уверены, что ввели фразу правильно?\nЭто действие восстановит доступ к кошельку.')) {
+        localStorage.setItem('mnemonic', normalizedPhrase);
+        localStorage.setItem('walletAddress', '0xc519118cd0c74879bd3FbF5fEaca473397540862'); // демо
+        alert('Кошелёк успешно восстановлен!');
+        window.location.href = 'index.html';
+      }
+    }
+
+    // Поддержка Enter для импорта (удобно на виртуальной клавиатуре)
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleImport();
+      }
+    });
+  </script>
 </body>
 </html>
