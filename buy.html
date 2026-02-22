@@ -1,155 +1,205 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TrustVia — Купить</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background: linear-gradient(135deg, #0b0b0b 0%, #121212 100%);
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            margin: 0;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>TrustVia — Купить</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --accent: #00d676;
+      --accent-dark: #00b35e;
+    }
 
-        .header {
-            background: rgba(11, 11, 11, 0.94);
-            backdrop-filter: blur(20px);
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
+    body {
+      background: linear-gradient(135deg, #0b0b0b 0%, #121212 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overscroll-behavior: none;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .back-btn {
-            font-size: 40px;
-            color: #00d676;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
+    .header {
+      background: rgba(11, 11, 11, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: clamp(12px, 4vw, 16px) clamp(16px, 5vw, 24px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
 
-        .back-btn:hover {
-            transform: scale(1.1);
-        }
+    .back-btn {
+      font-size: clamp(32px, 10vw, 40px);
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+      padding: 8px;
+      line-height: 1;
+    }
 
-        h1 {
-            font-size: 32px;
-            font-weight: 900;
-            color: #00d676;
-        }
+    .back-btn:active {
+      transform: scale(0.92);
+    }
 
-        .form-container {
-            padding: 32px 24px;
-            flex: 1;
-            overflow-y: auto;
-        }
+    h1 {
+      font-size: clamp(24px, 7vw, 32px);
+      font-weight: 900;
+      color: var(--accent);
+      margin: 0;
+    }
 
-        .form-group {
-            margin-bottom: 32px;
-        }
+    main {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: clamp(20px, 6vw, 32px) clamp(16px, 5vw, 24px);
+    }
 
-        label {
-            display: block;
-            font-size: 16px;
-            color: #aaa;
-            margin-bottom: 12px;
-        }
+    .form-group {
+      margin-bottom: clamp(24px, 7vh, 32px);
+    }
 
-        input, select {
-            background: #141414;
-            border: 1px solid #333;
-            color: white;
-            padding: 18px 20px;
-            border-radius: 20px;
-            width: 100%;
-            font-size: 17px;
-            transition: all 0.4s;
-        }
+    label {
+      display: block;
+      font-size: clamp(14px, 4vw, 16px);
+      color: #aaa;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
 
-        input:focus, select:focus {
-            border-color: #00d676;
-            box-shadow: 0 0 0 4px rgba(0,214,118,0.25);
-        }
+    input, select {
+      background: #141414;
+      border: 1px solid #333;
+      color: white;
+      padding: clamp(16px, 5vw, 18px) 20px;
+      border-radius: 20px;
+      width: 100%;
+      font-size: clamp(16px, 4.5vw, 17px);
+      transition: all 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
 
-        .fee-info {
-            color: #888;
-            font-size: 15px;
-            text-align: right;
-            margin-top: -16px;
-            margin-bottom: 40px;
-        }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 20px center;
+      background-size: 16px;
+    }
 
-        .btn-buy {
-            background: linear-gradient(135deg, #00d676, #00ff9d);
-            color: black;
-            font-weight: 700;
-            border-radius: 9999px;
-            padding: 20px;
-            width: 100%;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 12px 48px rgba(0,214,118,0.45);
-        }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0,214,118,0.22);
+      outline: none;
+    }
 
-        .btn-buy:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 20px 70px rgba(0,214,118,0.6);
-        }
-    </style>
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .fee-info {
+      color: #888;
+      font-size: clamp(13px, 3.8vw, 15px);
+      text-align: right;
+      margin: -12px 0 32px 0;
+    }
+
+    .btn-buy {
+      background: linear-gradient(135deg, var(--accent) 0%, #00ff9d 100%);
+      color: black;
+      font-weight: 700;
+      border-radius: 9999px;
+      padding: clamp(16px, 5vw, 20px);
+      width: 100%;
+      font-size: clamp(16px, 4.8vw, 18px);
+      border: none;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 12px 48px rgba(0,214,118,0.4);
+      margin-top: 8px;
+    }
+
+    .btn-buy:active {
+      transform: scale(0.97) translateY(2px);
+      box-shadow: 0 8px 32px rgba(0,214,118,0.35);
+      transition: all 0.12s ease;
+    }
+
+    .btn-buy:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 20px 70px rgba(0,214,118,0.55);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; transform: none !important; }
+    }
+  </style>
 </head>
 <body>
+  <header class="header">
+    <div class="back-btn" onclick="history.back()" aria-label="Назад">←</div>
+    <h1>Купить</h1>
+    <div></div> <!-- placeholder для баланса симметрии -->
+  </header>
 
-    <div class="header">
-        <div class="back-btn" onclick="history.back()">←</div>
-        <h1>Купить</h1>
-        <div></div>
-    </div>
+  <main>
+    <form id="buy-form" onsubmit="event.preventDefault(); alert('Покупка отправлена в обработку! (демо)');">
+      <div class="form-group">
+        <label for="token">Токен</label>
+        <select id="token" required>
+          <option value="ETH">ETH</option>
+          <option value="USDT">USDT</option>
+          <option value="WBTC">WBTC</option>
+          <option value="BTC">BTC</option>
+        </select>
+      </div>
 
-    <div class="form-container">
+      <div class="form-group">
+        <label for="amount">Сумма в $</label>
+        <input
+          type="number"
+          id="amount"
+          placeholder="0.00"
+          min="1"
+          step="0.01"
+          required
+          inputmode="decimal"
+        />
+      </div>
 
-        <div class="form-group">
-            <label>Токен</label>
-            <select>
-                <option>ETH</option>
-                <option>USDT</option>
-                <option>WBTC</option>
-            </select>
-        </div>
+      <div class="form-group">
+        <label for="payment">Метод оплаты</label>
+        <select id="payment" required>
+          <option value="card">Кредитная / дебетовая карта</option>
+          <option value="bank">Банковский перевод</option>
+          <option value="apple-google">Apple Pay / Google Pay</option>
+        </select>
+      </div>
 
-        <div class="form-group">
-            <label>Сумма в $</label>
-            <input type="number" placeholder="0.00">
-        </div>
+      <div class="fee-info">
+        Комиссия ≈ 1.5% • Примерный курс: 1 $ ≈ 1 USDT
+      </div>
 
-        <div class="form-group">
-            <label>Метод оплаты</label>
-            <select>
-                <option>Кредитная карта</option>
-                <option>Банковский перевод</option>
-                <option>Apple Pay / Google Pay</option>
-            </select>
-        </div>
-
-        <div class="fee-info">
-            Комиссия: 1.5% • Курс: 1 $ = 1 USDT
-        </div>
-
-        <button class="btn-buy" onclick="alert('Покупка выполнена! (демо-режим)')">
-            Купить сейчас
-        </button>
-
-    </div>
-
+      <button type="submit" class="btn-buy">
+        Купить сейчас
+      </button>
+    </form>
+  </main>
 </body>
 </html>
