@@ -1,116 +1,491 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SLOT HUNTERS | 1WIN</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>TrustVia — Кошелёк</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --gold: #ffcc00; --win: #00ff88; --error: #ff3366; --blue: #0077ff; --bg: #050508;
+        body {
+            background: linear-gradient(135deg, #0b0b0b 0%, #121212 100%);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            overflow: hidden;
+            height: 100dvh;
         }
-        body { background: #000; margin: 0; display: flex; justify-content: center; font-family: 'Montserrat', sans-serif; color: white; min-height: 100vh; }
-        .app-container { width: 100%; max-width: 414px; min-height: 100vh; background: var(--bg); position: relative; border-left: 1px solid #1a1a1a; border-right: 1px solid #1a1a1a; box-shadow: 0 0 50px rgba(0, 119, 255, 0.15); }
-        .ticker { background: #000; padding: 10px 0; border-bottom: 1px solid #222; overflow: hidden; white-space: nowrap; font-size: 10px; }
-        .ticker-track { display: inline-block; animation: scroll 30s linear infinite; }
-        .t-item { display: inline-block; margin-right: 25px; }
-        .t-item b { color: var(--win); }
-        .content { padding: 20px; padding-bottom: 100px; text-align: center; }
-        .main-title { font-size: 38px; font-weight: 900; margin: 10px 0 0 0; letter-spacing: -2px; }
-        .sub-partner { 
-            font-size: 12px; font-weight: 800; margin-bottom: 25px;
-            background: linear-gradient(90deg, #0077ff, #00ff88, #ffcc00, #0077ff);
-            background-size: 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rgb 3s linear infinite; text-transform: uppercase;
+
+        .header {
+            background: rgba(11, 11, 11, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
-        @keyframes rgb { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        .promo-banner { background: linear-gradient(135deg, #0044ff, #001144); border: 2px solid var(--blue); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0, 119, 255, 0.3); }
-        .promo-banner h2 { font-size: 22px; font-weight: 900; margin: 0; }
-        .btn-reg { background: linear-gradient(135deg, #ffd700, #ff8800); color: #000; width: 100%; padding: 20px; border: none; border-radius: 18px; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 204, 0, 0.3); margin-bottom: 20px; }
-        .dep-box { background: rgba(255, 51, 102, 0.05); border: 1px solid var(--error); border-radius: 20px; padding: 15px; margin-bottom: 25px; }
-        .dep-box h3 { font-size: 22px; font-weight: 900; margin: 5px 0; color: var(--error); }
-        .slot-card { background: #111; border: 1px solid #333; border-radius: 20px; padding: 15px; display: flex; align-items: center; cursor: pointer; transition: 0.3s; margin-bottom: 15px; }
-        .slot-card img { width: 60px; border-radius: 12px; margin-right: 15px; }
-        .hack-panel { background: #000; border: 2px solid var(--blue); border-radius: 25px; padding: 25px; margin-top: 10px; box-shadow: 0 0 20px rgba(0, 119, 255, 0.2); }
-        .found-text { font-size: 18px; font-weight: 900; margin-bottom: 10px; display: none; }
-        .result-text { font-size: 22px; font-weight: 900; margin-bottom: 15px; }
-        .nav { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(0,0,0,0.9); border: 1px solid #222; border-radius: 25px; display: flex; justify-content: space-around; padding: 15px; }
-        .nav-item { color: #555; font-size: 11px; font-weight: 900; cursor: pointer; }
-        .nav-item.active { color: var(--gold); }
-        @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-        .tab { display: none; }
-        .active-tab { display: block; }
+
+        .brand {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00d676, #00ff9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .avatar-btn {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #00d676, #00ff9d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            cursor: pointer;
+            border: 3px solid rgba(0,214,118,0.5);
+            box-shadow: 0 0 25px rgba(0,214,118,0.45);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .avatar-btn:hover {
+            transform: scale(1.18) rotate(8deg);
+            box-shadow: 0 0 40px rgba(0,214,118,0.7);
+        }
+
+        .balance-section {
+            text-align: center;
+            padding: 48px 24px 32px;
+            animation: fadeIn 1.4s ease;
+        }
+
+        .balance {
+            font-size: 68px;
+            font-weight: 900;
+            letter-spacing: -4px;
+            background: linear-gradient(90deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .change {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            padding: 32px 24px;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(6px);
+        }
+
+        .action-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.7);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .action-btn.green {
+            background: linear-gradient(135deg, #00d676, #00ff9d);
+            color: black;
+            box-shadow: 0 12px 48px rgba(0,214,118,0.5);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.18) translateY(-8px);
+            box-shadow: 0 20px 70px rgba(0,0,0,0.8);
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(11,11,11,0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #1a1a1a;
+            position: sticky;
+            top: 80px;
+            z-index: 40;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .tab-active {
+            color: #00d676;
+        }
+
+        .tab-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 5px;
+            background: linear-gradient(90deg, #00d676, #00ff9d);
+            border-radius: 5px 5px 0 0;
+            animation: slideIn 0.6s ease;
+        }
+
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .token-row {
+            background: linear-gradient(to right, #141414, #1a1a1a);
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            border: 1px solid #222;
+        }
+
+        .token-row:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 70px rgba(0,214,118,0.3);
+            border-color: #00d676;
+        }
+
+        .token-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0,214,118,0.35);
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            animation: fadeInModal 0.5s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(to bottom, #141414, #0c0c0c);
+            border-radius: 44px;
+            padding: 56px 36px;
+            width: 92%;
+            max-width: 420px;
+            text-align: center;
+            border: 1px solid #333;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.9);
+            animation: slideInUpModal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-avatar {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #00d676, #00ff9d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            font-weight: bold;
+            color: black;
+            margin: 0 auto 40px;
+            box-shadow: 0 0 60px rgba(0,214,118,0.7);
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #1a1a1a, #222);
+            color: white;
+            padding: 20px;
+            border-radius: 9999px;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 24px;
+            transition: all 0.4s;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+        }
+
+        .modal-btn.red {
+            background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 60px rgba(0,0,0,0.8);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 70%; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInUpModal {
+            from { transform: translateY(120px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
-<div class="app-container">
-    <div class="ticker"><div class="ticker-track" id="ticker-track"></div></div>
-    <div class="content">
-        <div id="home" class="tab active-tab">
-            <h1 class="main-title">SLOT <span style="color:var(--gold)">HUNTERS</span></h1>
-            <div class="sub-partner">OFFICIAL PARTNER 1WIN</div>
-            <div class="promo-banner"><h2>+500% ДО ДЕПОЗИТУ</h2><div style="font-size:12px; color:var(--win); margin-top:5px; font-weight:700;">ГАРАНТОВАНО ПРИ РЕЄСТРАЦІЇ 🎁</div></div>
-            
-            <button class="btn-reg" onclick="window.open('https://lkts.pro/d5e71e', '_blank')">ЗАРЕЄСТРУВАТИСЯ</button>
 
-            <div class="dep-box"><div style="font-size:10px; color:#888;">АКТИВАЦІЯ АЛГОРИТМІВ:</div><h3>МІНІМАЛЬНИЙ ДЕПОЗИТ 300 ₴</h3></div>
+    <div class="header">
+        <div class="flex items-center gap-6">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center text-base font-bold shadow-2xl ring-2 ring-white/20">ETH</div>
+            <div class="brand">TrustVia</div>
         </div>
-        <div id="slots" class="tab">
-            <h2 style="margin-bottom:20px;">ОБЕРІТЬ ГРУ</h2>
-            <div class="slot-card" onclick="openGame()" style="border-color:var(--blue)">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8X3z-Y9Y1EwX1XhX8m-R9_l9_j8_j9_j9_j9&s">
-                <div style="text-align:left;"><b style="font-size:18px;">MINE SLOT</b><br><small style="color:var(--win)">READY ●</small></div>
-            </div>
-            <div id="hack-area" style="display:none;">
-                <div class="hack-panel">
-                    <div id="h-status" style="font-size:10px; color:#444; text-transform:uppercase;">Searching vulnerability...</div>
-                    <div class="found-text rgb" id="h-found">ТАКТИКУ ЗНАЙДЕНО!</div>
-                    <div class="result-text" id="h-res"></div>
-                    <div id="timer" style="color:var(--error); font-size:12px; font-weight:900;"></div>
-                </div>
-                <button class="btn-reg" id="genBtn" style="background:var(--win); margin-top:15px;" onclick="getSignal()">ОТРИМАТИ ТАКТИКУ</button>
-            </div>
-            <div class="slot-card" style="opacity:0.3; cursor:default;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9-6Y-N_N4F2E-rB7hP_r9_h_n_X-q5Xq_XA&s"><b>SWEET BONANZA</b></div>
+        <div onclick="openModal()" class="avatar-btn">С</div>
+    </div>
+
+    <div class="balance-section">
+        <h1 id="total-usd" class="balance">0.00 $</h1>
+        <div id="change-24h" class="change">
+            0.00%
+            <svg class="w-8 h-8 text-neutral-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 3l-7 7h4v7h6v-7h4l-7-7z" />
+            </svg>
         </div>
     </div>
-    <div class="nav"><div class="nav-item active" onclick="switchTab('home', this)">Головна</div><div class="nav-item" onclick="switchTab('slots', this)">Слоти</div></div>
-</div>
-<script>
-    const names = ["Andriy", "Maks", "Rich", "Boss", "Digger", "Sanya", "King"];
-    const track = document.getElementById('ticker-track');
-    for(let i=0; i<30; i++) {
-        const u = names[Math.floor(Math.random()*names.length)] + "_" + Math.floor(Math.random()*99);
-        const w = (Math.floor(Math.random() * 100000) + 40000).toLocaleString();
-        track.innerHTML += `<span class="t-item">🔥 ${u}: <b>+${w} ₴</b></span>`;
-    }
-    function switchTab(id, el) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-tab'));
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        document.getElementById(id).classList.add('active-tab'); el.classList.add('active');
-    }
-    function openGame() { document.getElementById('hack-area').style.display = 'block'; }
-    function getSignal() {
-        const res = document.getElementById('h-res'); const fnd = document.getElementById('h-found'); const st = document.getElementById('h-status'); const btn = document.getElementById('genBtn');
-        if(!window.activated) {
-            alert("🚨 ПОМИЛКА!\nСистема не бачить депозит 300 ₴.\nПоповніть рахунок 1WIN для активації!");
-            window.open('https://lkts.pro/d5e71e', '_blank'); // СИЛКА ТУТ ТАКОЖ
-            window.activated = true; return;
+
+    <div class="action-buttons">
+        <div onclick="location.href='send.html'" class="action-btn">↑</div>
+        <div onclick="location.href='receive.html'" class="action-btn green">↓</div>
+        <div onclick="location.href='swap.html'" class="action-btn">⇄</div>
+    </div>
+
+    <div class="tabs">
+        <div id="tab-assets" class="tab tab-active" onclick="switchTab('assets')">Активы</div>
+        <div id="tab-history" class="tab" onclick="switchTab('history')">История</div>
+    </div>
+
+    <div id="assets-list" class="flex-1 overflow-y-auto hide-scroll px-6 py-8 space-y-8"></div>
+    <div id="history-list" class="flex-1 overflow-y-auto hide-scroll px-6 py-8 space-y-8 hidden"></div>
+
+    <!-- Модальное окно профиля -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-avatar">С</div>
+            <h2 class="text-4xl font-extrabold mb-5">Сергей</h2>
+            <p class="text-zinc-400 mb-14 text-2xl">@Сергей</p>
+            <div class="modal-btn" onclick="navigator.clipboard.writeText('0xc519118cd0c74879bd3FbF5fEaca473397540862'); alert('Адрес скопирован!')">Скопировать адрес</div>
+            <div class="modal-btn" onclick="alert('Seed-фраза доступна только при создании. Храните её в безопасном месте!')">Посмотреть seed</div>
+            <div class="modal-btn red" onclick="logout()">Выйти из аккаунта</div>
+            <div class="mt-12 text-zinc-400 cursor-pointer hover:text-zinc-200 text-xl" onclick="closeModal()">Закрыть</div>
+        </div>
+    </div>
+
+    <script>
+        // Проверка авторизации
+        if (!localStorage.getItem('mnemonic')) {
+            window.location.href = 'auth.html';
         }
-        st.innerText = "CONNECTING TO 1WIN API..."; btn.disabled = true; res.innerText = ""; fnd.style.display = "none";
-        setTimeout(() => {
-            const bet = Math.floor(Math.random() * (20 - 5 + 1)) + 5; const spins = Math.floor(Math.random() * (15 - 3 + 1)) + 3;
-            fnd.style.display = "block"; fnd.classList.add('sub-partner');
-            res.innerHTML = `СТАВКА: <span style="color:var(--gold)">${bet} ₴</span><br>СПІНІВ: <span style="color:var(--gold)">${spins}</span>`;
-            st.innerText = "SIGNAL GENERATED"; startTimer(180);
-        }, 2000);
-    }
-    function startTimer(sec) {
-        const tEl = document.getElementById('timer'); let t = sec;
-        let int = setInterval(() => {
-            let m = Math.floor(t/60); let s = t%60;
-            tEl.innerText = `ОНОВЛЕННЯ ЧЕРЕЗ: ${m}:${s < 10 ? '0'+s : s}`;
-            if(--t < 0) { clearInterval(int); tEl.innerText = ""; document.getElementById('genBtn').disabled = false; }
-        }, 1000);
-    }
-</script>
+
+        // Фиксируем твой адрес
+        const walletAddress = '0xc519118cd0c74879bd3FbF5fEaca473397540862';
+        localStorage.setItem('walletAddress', walletAddress);
+
+        // Список токенов
+        const tokens = [
+            { id:'WBTC', name:'Wrapped Bitcoin', bal:0.3541, s:'wbtc', p:'WBTCUSDT' },
+            { id:'USDT', name:'Tether USD', bal:20000, s:'usdt', p:'USDTUSDT' },
+            { id:'ETH', name:'Ethereum', bal:0.12, s:'eth', p:'ETHUSDT' },
+            { id:'USDC', name:'USD Coin', bal:0, s:'usdc', p:'USDCUSDT' },
+            { id:'LINK', name:'Chainlink', bal:0, s:'link', p:'LINKUSDT' },
+            { id:'UNI', name:'Uniswap', bal:0, s:'uni', p:'UNIUSDT' },
+            { id:'SHIB', name:'Shiba Inu', bal:0, s:'shib', p:'SHIBUSDT' },
+            { id:'PEPE', name:'Pepe', bal:0, s:'pepe', p:'PEPEUSDT' },
+            { id:'DAI', name:'Dai', bal:0, s:'dai', p:'DAIUSDT' },
+            { id:'AAVE', name:'Aave', bal:0, s:'aave', p:'AAVEUSDT' },
+            { id:'MKR', name:'Maker', bal:0, s:'mkr', p:'MKRUSDT' },
+            { id:'LDO', name:'Lido DAO', bal:0, s:'ldo', p:'LDOUSDT' }
+        ];
+
+        // Обновление баланса и активов
+        async function update() {
+            const balanceEl = document.getElementById('total-usd');
+            balanceEl.style.opacity = '0.5';
+            balanceEl.style.transform = 'translateY(-30px)';
+
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price');
+                if (!res.ok) throw new Error('API error');
+                const prices = await res.json();
+                let total = 0;
+                let html = '';
+
+                tokens.forEach(t => {
+                    let price = 1;
+                    if (t.p !== 'USDTUSDT') {
+                        const pData = prices.find(p => p.symbol === t.p);
+                        price = pData ? parseFloat(pData.price) : 0;
+                    }
+                    const val = t.bal * price;
+                    total += val;
+                    html += `
+                        <div onclick="location.href='chart.html?id=${t.id}&bal=${t.bal}&sym=${t.p}&icon=${t.s}'" 
+                             class="token-row flex justify-between items-center p-7">
+                            <div class="flex items-center gap-7">
+                                <img src="https://assets.coincap.io/assets/icons/${t.s}@2x.png" 
+                                     onerror="this.src='https://via.placeholder.com/72?text=${t.id}'" 
+                                     class="token-icon">
+                                <div>
+                                    <p class="font-bold text-3xl">$ ${val.toLocaleString('ru-RU', {minimumFractionDigits: 2})}</p>
+                                    <p class="text-lg text-zinc-400">${t.bal.toFixed(4)} ${t.id}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-3xl">$ ${val.toLocaleString('ru-RU', {minimumFractionDigits: 2})}</p>
+                            </div>
+                        </div>`;
+                });
+
+                setTimeout(() => {
+                    balanceEl.textContent = total.toLocaleString('ru-RU', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' $';
+                    balanceEl.style.opacity = '1';
+                    balanceEl.style.transform = 'translateY(0)';
+                }, 700);
+
+                const change24h = (Math.random() * 8 - 4).toFixed(2);
+                const changeEl = document.getElementById('change-24h');
+                changeEl.innerHTML = `
+                    ${change24h > 0 ? '+' : ''}${change24h}%
+                    <svg class="w-8 h-8 ${change24h > 0 ? 'change-positive' : change24h < 0 ? 'change-negative' : 'change-neutral'}" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="${change24h > 0 ? 'M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z' : 'M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 112 0v7.586l3.293-3.293a1 1 0 011.414 0z'}" clip-rule="evenodd" />
+                    </svg>
+                `;
+                changeEl.className = `change ${change24h > 0 ? 'change-positive' : change24h < 0 ? 'change-negative' : 'change-neutral'}`;
+
+                document.getElementById('assets-list').innerHTML = html;
+            } catch (e) {
+                console.error('Ошибка загрузки цен:', e);
+            }
+        }
+
+        // Генерация истории транзакций (демо)
+        function generateHistory() {
+            const fixedTransactions = [
+                { type: "Отправлено", token: "ETH", amount: "0.0500", usd: "120.45", date: "15.02.2026 14:30", status: "Успешно" },
+                { type: "Получено", token: "USDT", amount: "500.00", usd: "500.00", date: "14.02.2026 09:15", status: "Успешно" },
+                { type: "Обмен", token: "WBTC → USDT", amount: "0.0100", usd: "670.25", date: "12.02.2026 18:45", status: "Успешно" },
+                { type: "Отправлено", token: "SHIB", amount: "10000000", usd: "145.80", date: "10.02.2026 22:10", status: "Успешно" },
+                { type: "Вывод", token: "DAI", amount: "200.00", usd: "200.00", date: "05.02.2026 16:55", status: "Ошибка" },
+                { type: "Получено", token: "PEPE", amount: "5000000", usd: "89.50", date: "03.02.2026 11:20", status: "Успешно" },
+                { type: "Пополнение", token: "USDC", amount: "1000.00", usd: "1000.00", date: "01.02.2026 08:40", status: "Успешно" },
+                { type: "Отправлено", token: "LINK", amount: "5.00", usd: "78.90", date: "28.01.2026 13:25", status: "Успешно" },
+                { type: "Обмен", token: "UNI → ETH", amount: "10.00", usd: "45.30", date: "25.01.2026 21:50", status: "Успешно" },
+                { type: "Получено", token: "AAVE", amount: "2.50", usd: "320.75", date: "22.01.2026 10:05", status: "Успешно" },
+                { type: "Отправлено", token: "MKR", amount: "0.10", usd: "450.20", date: "19.01.2026 17:40", status: "Успешно" },
+                { type: "Вывод", token: "LDO", amount: "15.00", usd: "68.90", date: "16.01.2026 19:15", status: "Ошибка" },
+                { type: "Получено", token: "WBTC", amount: "0.0050", usd: "335.12", date: "13.01.2026 12:55", status: "Успешно" },
+                { type: "Пополнение", token: "USDT", amount: "250.00", usd: "250.00", date: "10.01.2026 08:20", status: "Успешно" },
+                { type: "Отправлено", token: "ETH", amount: "0.0200", usd: "48.18", date: "07.01.2026 23:10", status: "Успешно" },
+                { type: "Обмен", token: "SHIB → PEPE", amount: "2000000", usd: "32.40", date: "04.01.2026 15:35", status: "Успешно" },
+                { type: "Отправлено", token: "USDC", amount: "300.00", usd: "300.00", date: "01.01.2026 11:00", status: "Успешно" },
+                { type: "Получено", token: "DAI", amount: "150.00", usd: "150.00", date: "30.12.2025 09:45", status: "Успешно" },
+                { type: "Вывод", token: "LINK", amount: "3.00", usd: "47.34", date: "27.12.2025 20:20", status: "Ошибка" },
+                { type: "Пополнение", token: "UNI", amount: "8.00", usd: "36.16", date: "24.12.2025 14:50", status: "Успешно" }
+            ];
+
+            let html = '';
+            fixedTransactions.forEach(tx => {
+                let icon = '';
+                if (tx.type.includes("Отправлено")) icon = '<svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>';
+                else if (tx.type.includes("Получено") || tx.type.includes("Пополнение")) icon = '<svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7 7m0 0l7-7m-7 7V3"/></svg>';
+                else if (tx.type.includes("Обмен")) icon = '<svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>';
+                else icon = '<svg class="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+
+                const statusIcon = tx.status === 'Успешно' 
+                    ? '<div class="status-circle status-success w-12 h-12 text-3xl flex items-center justify-center">✓</div>'
+                    : '<div class="status-circle status-error w-12 h-12 text-3xl flex items-center justify-center">✕</div>';
+
+                html += `
+                    <div class="tx-item flex items-center justify-between p-6 bg-gradient-to-r from-[#141414] to-[#1a1a1a] rounded-3xl border border-[#222] hover:border-[#00d676] transition-all duration-300">
+                        <div class="flex items-center gap-6">
+                            ${statusIcon}
+                            <div>
+                                <p class="font-bold text-2xl">${tx.type} ${tx.amount} ${tx.token}</p>
+                                <p class="text-lg text-zinc-400">${tx.date}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-4xl font-extrabold text-white">$ ${tx.usd}</p>
+                        </div>
+                    </div>`;
+            });
+
+            document.getElementById('history-list').innerHTML = html;
+        }
+
+        function switchTab(tab) {
+            document.getElementById('assets-list').classList.toggle('hidden', tab !== 'assets');
+            document.getElementById('history-list').classList.toggle('hidden', tab !== 'history');
+            document.getElementById('tab-assets').classList.toggle('tab-active', tab === 'assets');
+            document.getElementById('tab-history').classList.toggle('tab-active', tab === 'history');
+        }
+
+        function openModal() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'modal' || e.target.textContent.includes('Закрыть')) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('mnemonic');
+            localStorage.removeItem('walletAddress');
+            window.location.href = 'auth.html';
+        }
+
+        // Запуск
+        update();
+        generateHistory();
+        setInterval(update, 15000);
+    </script>
+
 </body>
 </html>
